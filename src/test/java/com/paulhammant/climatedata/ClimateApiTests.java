@@ -28,7 +28,12 @@ public class ClimateApiTests {
      */
     @Before
     public void startup() throws Exception {
-        // Direct - no Servirtium
+
+        System.out.println("****************");
+        System.out.println("DIRECT MODE");
+        System.out.println(" - NO SERVIRTIUM");
+        System.out.println("****************");
+
         setSite(CLIMATE_API_SITE);
     }
 

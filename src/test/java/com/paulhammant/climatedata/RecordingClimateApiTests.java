@@ -12,6 +12,11 @@ public class RecordingClimateApiTests extends ClimateApiTests {
     @Override
     public void startup() throws Exception {
 
+        System.out.println("**********************");
+        System.out.println("SERVIRTIUM RECORD MODE");
+        System.out.println("**********************");
+
+
         SimpleInteractionManipulations manipulations = new SimpleInteractionManipulations(
                 "http://localhost:61417", "http://climatedataapi.worldbank.org")
                 .withHeaderPrefixesToRemoveFromServiceResponse("Date:");

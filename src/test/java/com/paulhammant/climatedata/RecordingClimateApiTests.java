@@ -19,10 +19,25 @@ public class RecordingClimateApiTests extends ClimateApiTests {
 
         SimpleInteractionManipulations manipulations = new SimpleInteractionManipulations(
                 "http://localhost:61417", "http://climatedataapi.worldbank.org")
-                .withHeaderPrefixesToRemoveFromServiceResponse("Date:");
-        recorder = new MarkdownRecorder(new ServiceInteropViaOkHttp(), manipulations);
+                .withHeaderPrefixesToRemoveFromServiceResponse("Date:", "X-", "Strict-Transport-Security",
+                        "Content-Security-Policy", "Cache-Control", "Secure", "HttpOnly",
+                        "Set-Cookie: climatedata.cookie=");
+
+        recorder = new MarkdownRecorder(new ServiceInteropViaOkHttp(), manipulations)
+                .withReplacementInRecording("Set-Cookie: AWSALB=.*",
+                        "Set-Cookie: AWSALB=REPLACED-IN-RECORDING; Expires=Thu, 15 Jan 2099 11:11:11 GMT; Path=/")
+                .withReplacementInRecording("Set-Cookie: TS0137860d=.*",
+                        "Set-Cookie: TS0137860d=ALSO-REPLACED-IN-RECORDING; Path=/")
+                .withReplacementInRecording("Set-Cookie: TS01c35ec3=.*",
+                        "Set-Cookie: TS01c35ec3=ONE-MORE-REPLACED-IN-RECORDING; Path=/")
+                .withReplacementInRecording("Set-Cookie: climatedataapi.cookie=.*",
+                        "Set-Cookie: climatedataapi.cookie=1234567899999; Path=/")
+                .withReplacementInRecording("Set-Cookie: climatedataapi_ext.cookie=.*",
+                        "Set-Cookie: climatedataapi_ext.cookie=9876543211111; Path=/");
+
         final ServiceMonitor.Console monitor = new ServiceMonitor.Console();
         //final ServiceMonitor.Console monitor = new ServiceMonitor.Default();
+
         servirtium = new JettyServirtiumServer(monitor, 61417, manipulations, recorder)
                 .start();
 

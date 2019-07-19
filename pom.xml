@@ -19,7 +19,7 @@
         <dependency>
             <groupId>com.paulhammant.servirtium</groupId>
             <artifactId>servirtium-jetty</artifactId>
-            <version>0.9.6</version>
+            <version>0.9.8-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>

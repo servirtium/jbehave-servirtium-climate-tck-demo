@@ -20,14 +20,14 @@ Host: climatedataapi.worldbank.org
 ```
 Content-Type: application/xml
 Connection: keep-alive
-Set-Cookie: AWSALB=6T6EhMw1yBTvhPLve9tXJpP6OCo2nmQioJXNrXMz7+B4x6rv+aSIPyn0DAxOQEUuU2eWtHhy4qUxZLS4guRIO3IY8Sa9v6eGTFQJWSfk288DguUZyW83FoJDyNEi; Expires=Sat, 06 Jul 2019 05:07:45 GMT; Path=/
+Set-Cookie: AWSALB=REPLACED-IN-RECORDING; Expires=Thu, 15 Jan 2099 11:11:11 GMT; Path=/
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Headers: X-Requested-With
 Access-Control-Allow-Methods: GET
-Set-Cookie: TS01c35ec3=010f7a2ab082f04598b12add9b070a5575ea557663c0508470e68d6aca24b50033f074bfe390bd4f4c681c5e4d9c17494a5eccc6a2; Path=/
-Set-Cookie: climatedataapi.cookie=299940106.33060.0000; path=/
-Set-Cookie: climatedataapi_ext.cookie=2543955978.20480.0000; path=/
-Set-Cookie: TS0137860d=017189f94763d8c7b3d29a7c0044a449913303004e9a32235023993470f21f73f2dbfe78848964cd6f40a09d15dacf6a3e7ee256abe22fdcf3f822869aa072282d2bd761c584877574d941620a6fb26ff949eee19d72fbc0aba363429423a81e9c0502a1fb; Path=/
+Set-Cookie: TS01c35ec3=ONE-MORE-REPLACED-IN-RECORDING; Path=/
+Set-Cookie: climatedataapi.cookie=1234567899999; Path=/
+Set-Cookie: climatedataapi_ext.cookie=9876543211111; Path=/
+Set-Cookie: TS0137860d=ALSO-REPLACED-IN-RECORDING; Path=/
 Transfer-Encoding: chunked
 ```
 

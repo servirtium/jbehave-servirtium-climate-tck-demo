@@ -11,15 +11,10 @@ import java.util.List;
 
 public class ClimateApi {
 
+    public static String DEFAULT_CLIMATE_API_SITE = "http://climatedataapi.worldbank.org";
 
-    public static String CLIMATE_API_SITE = "http://climatedataapi.worldbank.org";
-
-    private String site;
-    final XStream xStream;
-
-    public ClimateApi() {
-        this(CLIMATE_API_SITE);
-    }
+    private final String site;
+    private final XStream xStream;
 
     public ClimateApi(String site) {
         this.site = site;

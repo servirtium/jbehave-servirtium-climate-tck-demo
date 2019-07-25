@@ -5,7 +5,7 @@ import com.paulhammant.servirtium.InteractionMonitor;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.paulhammant.climatedata.ClimateApi.CLIMATE_API_SITE;
+import static com.paulhammant.climatedata.ClimateApi.DEFAULT_CLIMATE_API_SITE;
 import static java.lang.Float.NaN;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -34,7 +34,7 @@ public class ClimateApiTests {
         System.out.println(" - NO SERVIRTIUM");
         System.out.println("****************");
 
-        setSite(CLIMATE_API_SITE);
+        setSite(DEFAULT_CLIMATE_API_SITE);
     }
 
     @Test

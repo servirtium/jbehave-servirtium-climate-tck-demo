@@ -28,17 +28,16 @@ public class ClimateApi {
 
     public double getAveAnnualRainfall(final int fromCCYY, final int toCCYY, final String... countryISOs) {
 
-        List<Double> averages = new ArrayList<>();
+        double total = 0;
 
-        for (int i = 0; i < countryISOs.length; i++) {
-            String countryISO = countryISOs[i];
+        for (String countryISO : countryISOs) {
             String connection = site + "/climateweb/rest/v1/country/annualavg/pr/" + fromCCYY + "/" + toCCYY + "/" + countryISO + ".xml";
             InputStream input = null;
             byte[] b = new byte[0];
             try {
                 URL url = new URL(connection);
                 input = url.openStream();
-                String xml =  new String(input.readAllBytes());
+                String xml = new String(input.readAllBytes());
                 System.out.println(xml);
                 if (xml.contains("Invalid country code. Three letters are required")) {
                     throw new UnsupportedOperationException(countryISO + " not recognized by climateweb");
@@ -51,14 +50,14 @@ public class ClimateApi {
                 for (AnnualGcmDatum annualGcmDatum : bar) {
                     sum = sum + annualGcmDatum.annualData.doubleVal;
                 }
-                averages.add(sum / bar.size());
+                total += (sum / bar.size());
             } catch (IOException e) {
                 throw new UnsupportedOperationException("IOException during operation: " + e.getMessage(), e);
             }
         }
 
         // Average of N averages?  OK, look past that!
-        return averages.stream().mapToDouble(Double::doubleValue).average().orElse(0);
+        return total / countryISOs.length;
 
     }
 }

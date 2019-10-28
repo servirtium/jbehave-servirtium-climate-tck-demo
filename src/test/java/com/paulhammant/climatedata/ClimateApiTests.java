@@ -5,8 +5,12 @@ import com.paulhammant.servirtium.InteractionMonitor;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 import static com.paulhammant.climatedata.ClimateApi.DEFAULT_CLIMATE_API_SITE;
 import static java.lang.Float.NaN;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -84,6 +88,15 @@ public class ClimateApiTests {
         } catch (UnsupportedOperationException e) {
             assertEquals("mde not recognized by climateweb", e.getMessage());
         }
+    }
+
+    @Test
+    public void averageRainfallForGreatBritainAndFranceFrom1980to1999CanBeCalculatedFromTwoRequests() {
+        monitor.setScriptFilename("src/test/mocks/averageRainfallForGreatBritainAndFranceFrom1980to1999CanBeCalculatedFromTwoRequests.md");
+
+        assertEquals(951.3220963726872,
+                climateApi.getAveAnnualRainfall(1980, 1999, "gbr", "fra"), 0);
+
     }
 
 }

@@ -21,7 +21,8 @@ public class PlaybackClimateApiTests extends ClimateApiTests {
                 .withHeaderPrefixesToRemoveFromServiceResponse("Date:");
         final MarkdownReplayer.ReplayMonitor.Console monitor = new MarkdownReplayer.ReplayMonitor.Console();
         // final MarkdownReplayer.ReplayMonitor.Console monitor = new MarkdownReplayer.ReplayMonitor.Default();
-        replayer = new MarkdownReplayer(monitor);
+        replayer = new MarkdownReplayer(monitor)
+                .withReplacementInPlayback("User-Agent: .*", "User-Agent: Servirtium-Testing");
         final ServiceMonitor.Console monitor1 = new ServiceMonitor.Console();
         //final ServiceMonitor.Console monitor1 = new ServiceMonitor.Default();
         servirtium = new JettyServirtiumServer(monitor1, 61417, manipulations, replayer)
@@ -63,5 +64,9 @@ public class PlaybackClimateApiTests extends ClimateApiTests {
         super.averageRainfallForMiddleEarthFrom1980to1999DoesNotExist();
     }
 
+    @Override
+    public void averageRainfallForGreatBritainAndFranceFrom1980to1999CanBeCalculatedFromTwoRequests() {
+        super.averageRainfallForGreatBritainAndFranceFrom1980to1999CanBeCalculatedFromTwoRequests();
+    }
 
 }

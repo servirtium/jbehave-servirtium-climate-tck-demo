@@ -33,7 +33,9 @@ public class RecordingClimateApiTests extends ClimateApiTests {
                 .withReplacementInRecording("Set-Cookie: climatedataapi.cookie=.*",
                         "Set-Cookie: climatedataapi.cookie=1234567899999; Path=/")
                 .withReplacementInRecording("Set-Cookie: climatedataapi_ext.cookie=.*",
-                        "Set-Cookie: climatedataapi_ext.cookie=9876543211111; Path=/");
+                        "Set-Cookie: climatedataapi_ext.cookie=9876543211111; Path=/")
+                .withReplacementInRecording("User-Agent: .*",
+                        "User-Agent: Servirtium-Testing");
 
         final ServiceMonitor.Console monitor = new ServiceMonitor.Console();
         //final ServiceMonitor.Console monitor = new ServiceMonitor.Default();
@@ -78,4 +80,8 @@ public class RecordingClimateApiTests extends ClimateApiTests {
         super.averageRainfallForMiddleEarthFrom1980to1999DoesNotExist();
     }
 
+    @Override
+    public void averageRainfallForGreatBritainAndFranceFrom1980to1999CanBeCalculatedFromTwoRequests() {
+        super.averageRainfallForGreatBritainAndFranceFrom1980to1999CanBeCalculatedFromTwoRequests();
+    }
 }

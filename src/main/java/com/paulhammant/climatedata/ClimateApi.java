@@ -7,7 +7,9 @@ import com.thoughtworks.xstream.XStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class ClimateApi {
 
@@ -24,30 +26,39 @@ public class ClimateApi {
 
     }
 
-    public double getAveAnnualRainfall(final int fromCCYY, final int toCCYY, final String countryISO) {
-        String connection = site + "/climateweb/rest/v1/country/annualavg/pr/" + fromCCYY + "/" + toCCYY + "/" + countryISO + ".xml";
-        InputStream input = null;
-        byte[] b = new byte[0];
-        try {
-            URL url = new URL(connection);
-            input = url.openStream();
-            String xml =  new String(input.readAllBytes());
-            System.out.println(xml);
-            if (xml.contains("Invalid country code. Three letters are required")) {
-                throw new UnsupportedOperationException(countryISO + " not recognized by climateweb");
+    public double getAveAnnualRainfall(final int fromCCYY, final int toCCYY, final String... countryISOs) {
+
+        List<Double> averages = new ArrayList<>();
+
+        for (int i = 0; i < countryISOs.length; i++) {
+            String countryISO = countryISOs[i];
+            String connection = site + "/climateweb/rest/v1/country/annualavg/pr/" + fromCCYY + "/" + toCCYY + "/" + countryISO + ".xml";
+            InputStream input = null;
+            byte[] b = new byte[0];
+            try {
+                URL url = new URL(connection);
+                input = url.openStream();
+                String xml =  new String(input.readAllBytes());
+                System.out.println(xml);
+                if (xml.contains("Invalid country code. Three letters are required")) {
+                    throw new UnsupportedOperationException(countryISO + " not recognized by climateweb");
+                }
+                List<AnnualGcmDatum> bar = (List<AnnualGcmDatum>) xStream.fromXML(xml);
+                if (bar.size() == 0) {
+                    throw new UnsupportedOperationException("date range " + fromCCYY + "-" + toCCYY + " not supported");
+                }
+                double sum = 0;
+                for (AnnualGcmDatum annualGcmDatum : bar) {
+                    sum = sum + annualGcmDatum.annualData.doubleVal;
+                }
+                averages.add(sum / bar.size());
+            } catch (IOException e) {
+                throw new UnsupportedOperationException("IOException during operation: " + e.getMessage(), e);
             }
-            List<AnnualGcmDatum> bar = (List<AnnualGcmDatum>) xStream.fromXML(xml);
-            if (bar.size() == 0) {
-                throw new UnsupportedOperationException("date range " + fromCCYY + "-" + toCCYY + " not supported");
-            }
-            double ave = 0;
-            for (AnnualGcmDatum annualGcmDatum : bar) {
-                ave = ave + annualGcmDatum.annualData.doubleVal;
-            }
-            return ave / bar.size();
-        } catch (IOException e) {
-            throw new UnsupportedOperationException("IOException during operation: " + e.getMessage(), e);
         }
+
+        // Average of N averages?  OK, look past that!
+        return averages.stream().mapToDouble(Double::doubleValue).average().orElse(0);
 
     }
 }

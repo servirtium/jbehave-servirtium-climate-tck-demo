@@ -4,7 +4,7 @@
 
 ```
 Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2
-User-Agent: Java/12
+User-Agent: Servirtium-Testing
 Connection: keep-alive
 Host: climatedataapi.worldbank.org
 ```

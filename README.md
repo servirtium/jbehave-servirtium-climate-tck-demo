@@ -30,7 +30,7 @@ Running the same tests against the the Servirtium's playback server (using recor
 mvn clean install -Pplayback
 ```
 
-# How to make this a Technology Compatibiiy Kit:
+# How to make this a Technology Compatibility Kit:
 
 Make two jobs in your Travis/CircleCI setup:
 

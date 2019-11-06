@@ -23,7 +23,10 @@ public class RecordingClimateApiTests extends ClimateApiTests {
                         "Content-Security-Policy", "Cache-Control", "Secure", "HttpOnly",
                         "Set-Cookie: climatedata.cookie=");
 
-        recorder = new MarkdownRecorder(new ServiceInteropViaOkHttp(), manipulations)
+        final ServiceInteropViaOkHttp svcInterop = new ServiceInteropViaOkHttp()
+                .withConnectionTimeout(3000)
+                .withReadTimeout(3000);
+        recorder = new MarkdownRecorder(svcInterop, manipulations)
                 .withReplacementInRecording("Set-Cookie: AWSALB=.*",
                         "Set-Cookie: AWSALB=REPLACED-IN-RECORDING; Expires=Thu, 15 Jan 2099 11:11:11 GMT; Path=/")
                 .withReplacementInRecording("Set-Cookie: TS0137860d=.*",

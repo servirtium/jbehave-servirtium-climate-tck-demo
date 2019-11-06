@@ -4,9 +4,11 @@ import com.paulhammant.climatedata.domain.web.AnnualData;
 import com.paulhammant.climatedata.domain.web.AnnualGcmDatum;
 import com.thoughtworks.xstream.XStream;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -35,8 +37,10 @@ public class ClimateApi {
             InputStream input = null;
             byte[] b = new byte[0];
             try {
-                URL url = new URL(connection);
-                input = url.openStream();
+                URLConnection conn = new URL(connection).openConnection();
+                conn.setConnectTimeout(3000);
+                conn.setReadTimeout(3000);
+                input = conn.getInputStream();
                 String xml = new String(input.readAllBytes());
                 System.out.println(xml);
                 if (xml.contains("Invalid country code. Three letters are required")) {
@@ -52,7 +56,7 @@ public class ClimateApi {
                 }
                 total += (sum / bar.size());
             } catch (IOException e) {
-                throw new UnsupportedOperationException("IOException during operation: " + e.getMessage(), e);
+                throw new UnsupportedOperationException(e.getClass().getName() + " during operation, message: " + e.getMessage(), e);
             }
         }
 

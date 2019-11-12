@@ -8,13 +8,18 @@ A video that talks through this repo: https://youtu.be/256kAL890GI
 
 This requires JDK 12 (or above) and Maven 3.6.1+ (or above) to run.
 
-Running the tests directly against the the World Bank's Climate API (http://climatedataapi.worldbank.org) **direct**:
+### Running the tests DIRECTLY against the the World Bank's Climate API 
+
+This will hit the API **direct** at http://climatedataapi.worldbank.org, with 
+no Servirtium involved:
 
 ```
 mvn clean install -Pdirect
 ```
 
-Running the same tests against the the World Bank's Climate API (http://climatedataapi.worldbank.org) **indirectly** 
+### Running the tests and RECORDING the the World Bank's Climate API 
+
+This will hit the API **indirect** at http://climatedataapi.worldbank.org) 
 via Servirtium's Man-in-the-Middle recording server:
 
 ```
@@ -24,10 +29,29 @@ mvn clean install -Precord
 ^ this makes the recordings shown here: [climate-data-tck/tree/master/src/test/mocks/](https://github.com/paul-hammant/climate-data-tck/tree/master/src/test/mocks)
 
 
-Running the same tests against the the Servirtium's playback server (using recordings from the above):
+### Running the tests against the the Servirtium's playback server 
+
+Ths used the using recordings from the recording above - straight from the file system (the adjacent mocks/ 
+dir under source control):
 
 ```
 mvn clean install -Pplayback
+```
+
+### Running direct, playback and record modes together
+
+```
+mvn install -PdirectAndPlaybackAndRecord 
+```
+
+### Overcoming climateweb's flakiness
+
+Maven's test runner has a retry feature:
+
+```
+mvn install -Pdirect -Dsurefire.rerunFailingTestsCount=4
+#or
+mvn install -Precord -Dsurefire.rerunFailingTestsCount=4
 ```
 
 # How to make this a Technology Compatibility Kit:

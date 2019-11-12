@@ -44,11 +44,11 @@ public class ClimateApi {
                 String xml = new String(input.readAllBytes());
                 System.out.println(xml);
                 if (xml.contains("Invalid country code. Three letters are required")) {
-                    throw new UnsupportedOperationException(countryISO + " not recognized by climateweb");
+                    throw new CountryISOwrong(countryISO + " not recognized by climateweb");
                 }
                 List<AnnualGcmDatum> bar = (List<AnnualGcmDatum>) xStream.fromXML(xml);
                 if (bar.size() == 0) {
-                    throw new UnsupportedOperationException("date range " + fromCCYY + "-" + toCCYY + " not supported");
+                    throw new BadDateRange("date range " + fromCCYY + "-" + toCCYY + " not supported");
                 }
                 double sum = 0;
                 for (AnnualGcmDatum annualGcmDatum : bar) {
@@ -63,5 +63,15 @@ public class ClimateApi {
         // Average of N averages?  OK, look past that!
         return total / countryISOs.length;
 
+    }
+    static class BadDateRange extends UnsupportedOperationException {
+        public BadDateRange(String message) {
+            super(message);
+        }
+    }
+    static class CountryISOwrong extends UnsupportedOperationException {
+        public CountryISOwrong(String message) {
+            super(message);
+        }
     }
 }

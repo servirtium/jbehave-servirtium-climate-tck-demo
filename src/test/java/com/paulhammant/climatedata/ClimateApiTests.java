@@ -73,7 +73,7 @@ public class ClimateApiTests {
         try {
             climateApi.getAveAnnualRainfall(1985, 1995, "gbr");
             fail("should have failed in line above");
-        } catch (UnsupportedOperationException e) {
+        } catch (ClimateApi.BadDateRange e) {
             assertEquals("UnsupportedOperationException encountered, but with wrong message",
                     "date range 1985-1995 not supported", e.getMessage());
         }
@@ -86,7 +86,7 @@ public class ClimateApiTests {
         try {
             climateApi.getAveAnnualRainfall(1980, 1999, "mde");
             fail("should have failed in line above");
-        } catch (UnsupportedOperationException e) {
+        } catch (ClimateApi.CountryISOwrong e) {
             assertEquals("UnsupportedOperationException encountered, but with wrong message",
                     "mde not recognized by climateweb", e.getMessage());
         }

@@ -1,16 +1,10 @@
 package com.paulhammant.climatedata;
 
-
 import com.paulhammant.servirtium.InteractionMonitor;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.stream.Stream;
-
 import static com.paulhammant.climatedata.ClimateApi.DEFAULT_CLIMATE_API_SITE;
-import static java.lang.Float.NaN;
-import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 

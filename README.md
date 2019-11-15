@@ -56,7 +56,7 @@ mvn install -Precord -Dsurefire.rerunFailingTestsCount=4
 
 ### Seeing ClimateAPI's flakiness
 
-<iframe width="1054" height="648" src="https://www.youtube.com/embed/PEsVkMUH6uQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![Watch the video](https://user-images.githubusercontent.com/82182/68976194-2ce3ed80-07ed-11ea-8d8b-4340f608751f.png)](https://youtu.be/PEsVkMUH6uQ)
 
 # How to make this a Technology Compatibility Kit:
 

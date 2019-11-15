@@ -54,6 +54,10 @@ mvn install -Pdirect -Dsurefire.rerunFailingTestsCount=4
 mvn install -Precord -Dsurefire.rerunFailingTestsCount=4
 ```
 
+### Seeing ClimateAPI's flakiness
+
+<iframe width="1054" height="648" src="https://www.youtube.com/embed/PEsVkMUH6uQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 # How to make this a Technology Compatibility Kit:
 
 Make two jobs in your Travis/CircleCI setup:

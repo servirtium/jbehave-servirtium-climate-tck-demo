@@ -1,10 +1,19 @@
 # Demo of Servirtium Service Virtualization
 
-Servirtium itself: https://github.com/paul-hammant/servirtium
+Servirtium (Java) itself: https://github.com/servirtium/servirtium-java
 
 A video that talks through this repo: https://youtu.be/256kAL890GI
 
-## Running it
+Synopsis: The World Bank's has a climate API. Among other things you can get rainfall data from 
+history. Here's what that looks like in a normal browser (Rainfall from France 1980 - 1999):
+
+![2019-11-17_2256](https://user-images.githubusercontent.com/82182/69015669-0c06ce00-098e-11ea-963c-13f5e6cd9821.png)
+
+There's a small Java API that wraps calls to the that XML service and gives a convenient programmatic
+interface to rainfall queries.  There's tests too against known rainfall queries, that are used as
+a testbed for Servirtium.
+
+## Running the build (and tests)
 
 This requires JDK 12 (or above) and Maven 3.6.1+ (or above) to run.
 

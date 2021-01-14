@@ -20,7 +20,7 @@ public class ClimateSteps {
 
     @When("rainfall totals sought for $from thru $to for $ccy")
     public void whenRainfallTotalsSoughtBetweenDates(int from, int to, String ccy) {
-        rainfall = api.getAveAnnualRainfall(from, to, ccy);
+        rainfall = api.getAveAnnualRainfall(from, to, ccy.split(","));
     }
 
     @Then("the total was $total")

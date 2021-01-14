@@ -42,7 +42,6 @@ public class ClimateApi {
                 conn.setReadTimeout(3000);
                 input = conn.getInputStream();
                 String xml = new String(input.readAllBytes());
-                System.out.println(xml);
                 if (xml.contains("Invalid country code. Three letters are required")) {
                     throw new CountryISOwrong(countryISO + " not recognized by climateweb");
                 }

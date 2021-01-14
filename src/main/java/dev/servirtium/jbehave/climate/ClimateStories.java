@@ -20,6 +20,7 @@ import org.jbehave.core.steps.ParameterControls;
 import org.jbehave.core.steps.ParameterConverters;
 import org.jbehave.core.steps.ParameterConverters.DateConverter;
 import org.jbehave.core.steps.ParameterConverters.ExamplesTableConverter;
+import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
@@ -86,8 +87,12 @@ public class ClimateStories extends JUnitStories {
 
     @Override
     public InjectableStepsFactory stepsFactory() {
-        return new InstanceStepsFactory(configuration(),
-                new ClimateSteps());
+        return new InstanceStepsFactory(configuration(), getSteps());
+    }
+
+    @NotNull
+    protected Object[] getSteps() {
+        return new Object[] { new ClimateSteps("http://climatedataapi.worldbank.org") };
     }
 
     @Override

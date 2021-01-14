@@ -12,7 +12,7 @@
     <properties>
         <maven.compiler.target>12</maven.compiler.target>
         <maven.compiler.source>12</maven.compiler.source>
-        <embeddables>**/ClimateStories.java</embeddables>
+        <embeddables>**/*ClimateStories.java</embeddables>
         <meta.filter>-skip</meta.filter>
         <threads>2</threads>
         <ignore.failure.in.stories>true</ignore.failure.in.stories>
@@ -28,6 +28,11 @@
         <dependency>
             <groupId>org.http4k</groupId>
             <artifactId>http4k-core</artifactId>
+            <version>3.283.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.http4k</groupId>
+            <artifactId>http4k-testing-servirtium</artifactId>
             <version>3.283.1</version>
         </dependency>
     </dependencies>

@@ -11,10 +11,15 @@ public class ClimateSteps {
     private ClimateApi api;
     private double rainfall;
     private String message;
+    private String apiURL;
+
+    public ClimateSteps(final String apiURL) {
+        this.apiURL = apiURL;
+    }
 
     @Given("World Bank geo data for the world on decade boundaries")
     public void givenWorldBankGeoDataForTheWorldOnDecadeBoundaries() {
-        api = new ClimateApi("http://climatedataapi.worldbank.org");
+        api = new ClimateApi(apiURL);
     }
 
     @When("rainfall totals sought for $from thru $to for $ccy")

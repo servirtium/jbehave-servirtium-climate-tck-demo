@@ -1,17 +1,14 @@
-package com.paulhammant.climatedata;
+package dev.servirtium.jbehave.climate;
 
-import com.paulhammant.climatedata.domain.web.AnnualData;
-import com.paulhammant.climatedata.domain.web.AnnualGcmDatum;
+import dev.servirtium.jbehave.climate.domain.web.AnnualData;
+import dev.servirtium.jbehave.climate.domain.web.AnnualGcmDatum;
 import com.thoughtworks.xstream.XStream;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class ClimateApi {
 
@@ -25,7 +22,10 @@ public class ClimateApi {
         xStream = new XStream();
         xStream.alias("domain.web.AnnualGcmDatum", AnnualGcmDatum.class);
         xStream.aliasField("double", AnnualData.class, "doubleVal");
-
+        XStream.setupDefaultSecurity(xStream); // to be removed after 1.5
+        xStream.allowTypesByWildcard(new String[] {
+                "dev.servirtium.**"
+        });
     }
 
     public double getAveAnnualRainfall(final int fromCCYY, final int toCCYY, final String... countryISOs) {

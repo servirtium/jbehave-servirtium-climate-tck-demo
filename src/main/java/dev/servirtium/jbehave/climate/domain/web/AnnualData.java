@@ -1,4 +1,4 @@
-package com.paulhammant.climatedata.domain.web;
+package dev.servirtium.jbehave.climate.domain.web;
 
 public class AnnualData {
 

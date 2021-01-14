@@ -1,4 +1,4 @@
-package com.paulhammant.climatedata;
+package dev.servirtium.jbehave.climate;
 
 import org.jbehave.core.Embeddable;
 import org.jbehave.core.configuration.Configuration;

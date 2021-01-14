@@ -9,7 +9,7 @@ Examples:
 |gbr    |1980    |1999  |988.8454972331015|
 |fra    |1980    |1999  |913.7986955122727|
 |egy    |1980    |1999  |54.58587712129825|
-|gbr,fra|1980    |1999  |951.3220963726872|
+|gbr and fra|1980    |1999  |951.3220963726872|
 
 Scenario: Checking that negative cases return failure message
 

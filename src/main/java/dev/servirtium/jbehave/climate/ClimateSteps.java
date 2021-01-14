@@ -25,7 +25,7 @@ public class ClimateSteps {
     @When("rainfall totals sought for $from thru $to for $ccy")
     public void whenRainfallTotalsSoughtBetweenDates(int from, int to, String ccy) {
         try {
-            rainfall = api.getAverageRainfall(from, to, ccy.split(","));
+            rainfall = api.getAverageRainfall(from, to, ccy.split(" and "));
         } catch ( Exception e ){
             message = e.getMessage();
         }

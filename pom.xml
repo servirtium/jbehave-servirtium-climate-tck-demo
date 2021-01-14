@@ -8,22 +8,26 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
+        <embeddables>**/ClimateStories.java</embeddables>
+        <meta.filter>-skip</meta.filter>
+        <threads>2</threads>
+        <ignore.failure.in.stories>true</ignore.failure.in.stories>
+        <ignore.failure.in.view>false</ignore.failure.in.view>
     </properties>
 
     <modelVersion>4.0.0</modelVersion>
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <groupId>org.jbehave</groupId>
+            <artifactId>jbehave-core</artifactId>
+            <version>4.8.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.paulhammant.servirtium</groupId>
-            <artifactId>servirtium-jetty</artifactId>
-            <version>0.9.8-SNAPSHOT</version>
+            <groupId>org.http4k</groupId>
+            <artifactId>http4k-core</artifactId>
+            <version>3.283.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -44,84 +48,44 @@
                     <target>12</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.jbehave</groupId>
+                <artifactId>jbehave-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-view-resources</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>unpack-view-resources</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>embeddable-stories</id>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <includes>
+                                <include>${embeddables}</include>
+                            </includes>
+                            <excludes />
+                            <skip>${skip}</skip>
+                            <batch>false</batch>
+                            <generateViewAfterStories>true</generateViewAfterStories>
+                            <ignoreFailureInStories>${ignore.failure.in.stories}</ignoreFailureInStories>
+                            <ignoreFailureInView>${ignore.failure.in.view}</ignoreFailureInView>
+                            <storyTimeoutInSecs>300</storyTimeoutInSecs>
+                            <storyTimeoutInSecsByPath>**/and_*.story:8,**/*calendar.story:15</storyTimeoutInSecsByPath>
+                            <threads>${threads}</threads>
+                            <metaFilters>
+                                <metaFilter>${meta.filter}</metaFilter>
+                            </metaFilters>
+                        </configuration>
+                        <goals>
+                            <goal>run-stories-as-embeddables</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>direct</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
-                        <configuration>
-                            <includes>
-                                <include>**/ClimateApiTests.java</include>
-                            </includes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>record</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
-                        <configuration>
-                            <includes>
-                                <include>**/RecordingClimateApiTests.java</include>
-                            </includes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>playback</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
-                        <configuration>
-                            <includes>
-                                <include>**/PlaybackClimateApiTests.java</include>
-                            </includes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>directAndPlaybackAndRecord</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
-                        <configuration>
-                            <includes>
-                                <include>**/*Tests.java</include>
-                            </includes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>

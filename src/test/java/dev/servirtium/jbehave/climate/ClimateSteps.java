@@ -11,6 +11,7 @@ public class ClimateSteps {
     private double rainfall;
 
     private ClimateApi api;
+    private String message;
 
     @Given("World Bank geo data for the world on decade boundaries")
     public void givenWorldBankGeoDataForTheWorldOnDecadeBoundaries() {
@@ -19,11 +20,20 @@ public class ClimateSteps {
 
     @When("rainfall totals sought for $from thru $to for $ccy")
     public void whenRainfallTotalsSoughtBetweenDates(int from, int to, String ccy) {
-        rainfall = api.getAveAnnualRainfall(from, to, ccy.split(","));
+        try {
+            rainfall = api.getAveAnnualRainfall(from, to, ccy.split(","));
+        } catch ( Exception e ){
+            message = e.getMessage();
+        }
     }
 
     @Then("the total was $total")
     public void thenTotalWas(double total) {
         assertThat(rainfall, equalTo(total));
+    }
+
+    @Then("message '$message' is received instead of rainfall")
+    public void thenMessageIsReceivedInsteadOfRainfall(String message) {
+        assertThat(this.message, equalTo(message));
     }
 }

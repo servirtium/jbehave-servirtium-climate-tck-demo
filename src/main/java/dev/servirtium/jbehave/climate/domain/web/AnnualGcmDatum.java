@@ -5,5 +5,9 @@ public class AnnualGcmDatum {
     String variable;
     int fromYear;
     int toYear;
-    public AnnualData annualData;
+    AnnualData annualData;
+
+    public double getAnnualData() {
+        return annualData.getValue();
+    }
 }

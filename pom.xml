@@ -3,11 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+    <modelVersion>4.0.0</modelVersion>
+
     <groupId>dev.servirtium</groupId>
     <artifactId>demo-jbehave-climate-tck</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <maven.compiler.target>12</maven.compiler.target>
+        <maven.compiler.source>12</maven.compiler.source>
         <embeddables>**/ClimateStories.java</embeddables>
         <meta.filter>-skip</meta.filter>
         <threads>2</threads>
@@ -15,40 +19,22 @@
         <ignore.failure.in.view>false</ignore.failure.in.view>
     </properties>
 
-    <modelVersion>4.0.0</modelVersion>
-
     <dependencies>
         <dependency>
             <groupId>org.jbehave</groupId>
             <artifactId>jbehave-core</artifactId>
             <version>4.8.1</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.http4k</groupId>
             <artifactId>http4k-core</artifactId>
             <version>3.283.1</version>
-            <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.thoughtworks.xstream</groupId>
-            <artifactId>xstream</artifactId>
-            <version>1.4.11.1</version>
-        </dependency>
-
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>12</source>
-                    <target>12</target>
-                </configuration>
-            </plugin>
-            <plugin>
+           <plugin>
                 <groupId>org.jbehave</groupId>
                 <artifactId>jbehave-maven-plugin</artifactId>
                 <executions>
@@ -67,13 +53,10 @@
                                 <include>${embeddables}</include>
                             </includes>
                             <excludes />
-                            <skip>${skip}</skip>
                             <batch>false</batch>
                             <generateViewAfterStories>true</generateViewAfterStories>
                             <ignoreFailureInStories>${ignore.failure.in.stories}</ignoreFailureInStories>
                             <ignoreFailureInView>${ignore.failure.in.view}</ignoreFailureInView>
-                            <storyTimeoutInSecs>300</storyTimeoutInSecs>
-                            <storyTimeoutInSecsByPath>**/and_*.story:8,**/*calendar.story:15</storyTimeoutInSecsByPath>
                             <threads>${threads}</threads>
                             <metaFilters>
                                 <metaFilter>${meta.filter}</metaFilter>

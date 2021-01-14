@@ -2,5 +2,9 @@ package dev.servirtium.jbehave.climate.domain.web;
 
 public class AnnualData {
 
-    public double doubleVal;
+    double value;
+
+    public double getValue() {
+        return value;
+    }
 }

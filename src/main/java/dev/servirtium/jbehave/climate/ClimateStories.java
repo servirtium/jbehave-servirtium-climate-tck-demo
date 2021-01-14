@@ -29,15 +29,6 @@ import java.util.Properties;
 import static org.jbehave.core.io.CodeLocations.codeLocationFromClass;
 import static org.jbehave.core.reporters.Format.*;
 
-/**
- * <p>
- * Example of how multiple stories can be run via JUnit.
- * </p>
- * <p>
- * Stories are specified in classpath and correspondingly the
- * {@link LoadFromClasspath} story loader is configured.
- * </p>
- */
 public class ClimateStories extends JUnitStories {
 
     private final CrossReference xref = new CrossReference();
@@ -102,7 +93,7 @@ public class ClimateStories extends JUnitStories {
     @Override
     protected List<String> storyPaths() {
         String filter = System.getProperty("story.filter", "**/*.story");
-        return findPaths(filter, "**/custom/*.story,**/failing/*.story,**/given/*.story,**/pending/*.story");
+        return findPaths(filter, "");
     }
 
     private List<String> findPaths(String include, String exclude) {

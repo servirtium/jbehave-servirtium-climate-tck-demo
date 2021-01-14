@@ -8,9 +8,8 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ClimateSteps {
-    private double rainfall;
-
     private ClimateApi api;
+    private double rainfall;
     private String message;
 
     @Given("World Bank geo data for the world on decade boundaries")
@@ -21,7 +20,7 @@ public class ClimateSteps {
     @When("rainfall totals sought for $from thru $to for $ccy")
     public void whenRainfallTotalsSoughtBetweenDates(int from, int to, String ccy) {
         try {
-            rainfall = api.getAveAnnualRainfall(from, to, ccy.split(","));
+            rainfall = api.getAverageRainfall(from, to, ccy.split(","));
         } catch ( Exception e ){
             message = e.getMessage();
         }

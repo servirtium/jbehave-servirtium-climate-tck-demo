@@ -1,4 +1,4 @@
-Scenario: Checking that positive cases return rainfall
+Scenario: Checking positive cases return rainfall
 
 Given World Bank geo data for the world on decade boundaries
 When rainfall totals sought for <FromYear> thru <ToYear> for <Country>
@@ -11,7 +11,7 @@ Examples:
 |egy    |1980    |1999  |54.58587712129825|
 |gbr and fra|1980    |1999  |951.3220963726872|
 
-Scenario: Checking that negative cases return failure message
+Scenario: Checking negative cases return failure message
 
 Given World Bank geo data for the world on decade boundaries
 When rainfall totals sought for 1985 thru 1995 for gbr

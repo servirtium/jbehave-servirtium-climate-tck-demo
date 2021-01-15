@@ -31,15 +31,14 @@ import static org.jbehave.core.reporters.Format.*;
 
 public class ClimateStories extends JUnitStories {
 
-    private final CrossReference xref = new CrossReference();
     protected final Context context = new ClimateContext();
     private Format contextFormat = new ContextOutput(context);
     private ContextView contextView = new JFrameContextView().sized(640, 120);
-    private ContextStepMonitor contextStepMonitor = new ContextStepMonitor(context, contextView, xref.getStepMonitor());
+    private ContextStepMonitor contextStepMonitor = new ContextStepMonitor(context, contextView, new NullStepMonitor());
 
     public ClimateStories() {
         configuredEmbedder().embedderControls().doGenerateViewAfterStories(true).doIgnoreFailureInStories(false)
-                .doIgnoreFailureInView(true).doVerboseFailures(true).useThreads(2).useStoryTimeouts("60");
+                .doIgnoreFailureInView(true).doVerboseFailures(true).useThreads(1).useStoryTimeouts("60");
         configuredEmbedder().useEmbedderControls(new PropertyBasedEmbedderControls());
     }
 
@@ -51,22 +50,9 @@ public class ClimateStories extends JUnitStories {
             return super.configuration();
         }
         Class<? extends Embeddable> embeddableClass = this.getClass();
-        Properties viewResources = new Properties();
-        viewResources.put("decorateNonHtml", "true");
-        viewResources.put("reports", "ftl/jbehave-reports.ftl");
         LoadFromClasspath resourceLoader = new LoadFromClasspath(embeddableClass);
-        TableParsers tableParsers = new TableParsers();
         TableTransformers tableTransformers = new TableTransformers();
-        ParameterControls parameterControls = new ParameterControls();
-        // Start from default ParameterConverters instance
-        ParameterConverters parameterConverters = new ParameterConverters(resourceLoader, tableTransformers);
-        // factory to allow parameter conversion and loading from external
-        // resources (used by StoryParser too)
-        ExamplesTableFactory examplesTableFactory = new ExamplesTableFactory(new LocalizedKeywords(), resourceLoader,
-                parameterConverters, parameterControls, tableParsers, tableTransformers);
-        // add custom converters
-        parameterConverters.addConverters(new DateConverter(new SimpleDateFormat("yyyy-MM-dd")),
-                new ExamplesTableConverter(examplesTableFactory));
+        ExamplesTableFactory examplesTableFactory = new ExamplesTableFactory(resourceLoader, tableTransformers);
         SurefireReporter.Options options = new SurefireReporter.Options().useReportName("surefire")
                 .withNamingStrategy(new SurefireReporter.BreadcrumbNamingStrategy()).doReportByStory(true);
         SurefireReporter surefireReporter = new SurefireReporter(embeddableClass, options);
@@ -77,13 +63,10 @@ public class ClimateStories extends JUnitStories {
                 .useStoryReporterBuilder(
                         new StoryReporterBuilder()
                                 .withCodeLocation(codeLocationFromClass(embeddableClass))
-                                .withDefaultFormats().withViewResources(viewResources)
-                                .withFormats(contextFormat, ANSI_CONSOLE, TXT, HTML_TEMPLATE, XML_TEMPLATE).withFailureTrace(true)
-                                .withFailureTraceCompression(true).withCrossReference(xref)
-                                .withSurefireReporter(surefireReporter)
-                .withCrossReference(xref))
-                .useParameterConverters(parameterConverters)
-                .useParameterControls(parameterControls)
+                                .withFormats(contextFormat, ANSI_CONSOLE)
+                                .withFailureTrace(true)
+                                .withFailureTraceCompression(true)
+                                .withSurefireReporter(surefireReporter))
                 .useTableTransformers(tableTransformers)
                 .useCompositePaths(new HashSet<>(findPaths("**/*.steps", null)));
     }

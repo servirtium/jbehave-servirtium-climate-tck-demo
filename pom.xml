@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dev.servirtium</groupId>
-    <artifactId>demo-jbehave-climate-tck</artifactId>
+    <artifactId>servirtium-demo-jbehave-climate-tck</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -24,11 +24,6 @@
             <groupId>org.jbehave</groupId>
             <artifactId>jbehave-core</artifactId>
             <version>4.8.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.http4k</groupId>
-            <artifactId>http4k-core</artifactId>
-            <version>3.283.1</version>
         </dependency>
         <dependency>
             <groupId>org.http4k</groupId>

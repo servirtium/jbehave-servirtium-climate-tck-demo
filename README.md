@@ -23,11 +23,8 @@ This will hit the API **direct** at http://climatedataapi.worldbank.org, with
 no Servirtium involved:
 
 ```
-mvn clean install -Pdirect
+mvn clean install 
 ```
-
-^ -P is a profile in Maven, and 'direct' is the name of a profile which sets up tests 
-with no Servirtium
 
 ### Running the tests and RECORDING the the World Bank's Climate API 
 
@@ -48,25 +45,19 @@ Ths used the using recordings from the recording above - straight from the file 
 dir under source control):
 
 ```
-mvn clean install -Pplayback
+mvn clean install -Preplay
 ```
 
-^ a Maven profile of 'playback' sets up tests with Servirtium in playback mode, using recordings 
+^ a Maven profile of 'replay' sets up tests with Servirtium in playback mode, using recordings 
 done previously in [src/test/mocks/](/servirtium/demo-java-climate-data-tck/tree/master/src/test/mocks) - 
 (one recording per test method).
-
-### Running direct, playback and record modes together
-
-```
-mvn install -PdirectAndPlaybackAndRecord 
-```
 
 ### Overcoming climateweb's flakiness
 
 Maven's test runner has a retry feature:
 
 ```
-mvn install -Pdirect -Dsurefire.rerunFailingTestsCount=4
+mvn install -Dsurefire.rerunFailingTestsCount=4
 #or
 mvn install -Precord -Dsurefire.rerunFailingTestsCount=4
 ```

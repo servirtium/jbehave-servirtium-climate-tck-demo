@@ -1,6 +1,13 @@
 package dev.servirtium.jbehave.climate;
 
+import org.apache.commons.text.WordUtils;
+import org.http4k.client.ApacheClient;
+import org.http4k.core.Uri;
+import org.http4k.server.SunHttp;
+import org.http4k.servirtium.ServirtiumServer;
 import org.jbehave.core.Embeddable;
+import org.jbehave.core.annotations.AfterScenario;
+import org.jbehave.core.annotations.BeforeScenario;
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
 import org.jbehave.core.context.Context;
@@ -23,13 +30,18 @@ import org.jbehave.core.steps.InstanceStepsFactory;
 import org.jbehave.core.steps.NullStepMonitor;
 
 import javax.validation.constraints.NotNull;
+import java.io.File;
 import java.util.HashSet;
 import java.util.List;
 
+import static org.http4k.servirtium.InteractionStorage.Disk;
 import static org.jbehave.core.io.CodeLocations.codeLocationFromClass;
 import static org.jbehave.core.reporters.Format.ANSI_CONSOLE;
 
 public class ClimateStories extends JUnitStories {
+
+    public static final String CLIMATEDATA_URL = "http://climatedataapi.worldbank.org";
+    public static final String MD_PATH = "src/main/resources/md";
 
     protected final Context context = new ClimateContext();
     private Format contextFormat = new ContextOutput(context);
@@ -90,4 +102,10 @@ public class ClimateStories extends JUnitStories {
     private List<String> findPaths(String include, String exclude) {
         return new StoryFinder().findPaths(codeLocationFromClass(this.getClass()), include, exclude);
     }
+
+    @NotNull
+    protected static String toCamelCase(String name) {
+        return WordUtils.capitalizeFully(name).replaceAll(" ", "");
+    }
+
 }

@@ -2,7 +2,7 @@ package dev.servirtium.jbehave.climate;
 
 import org.jetbrains.annotations.NotNull;
 
-public class RecordingClimateStories extends ClimateStories {
+public class ReplayingClimateStories extends ClimateStories {
 
     @NotNull
     @Override

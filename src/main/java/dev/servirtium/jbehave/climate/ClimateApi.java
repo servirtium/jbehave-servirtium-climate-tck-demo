@@ -3,6 +3,10 @@ package dev.servirtium.jbehave.climate;
 import com.thoughtworks.xstream.XStream;
 import dev.servirtium.jbehave.climate.domain.web.AnnualData;
 import dev.servirtium.jbehave.climate.domain.web.AnnualGcmDatum;
+import org.http4k.client.JavaHttpClient;
+import org.http4k.core.Method;
+import org.http4k.core.Request;
+import org.http4k.core.Uri;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -60,11 +64,7 @@ public class ClimateApi {
 
     private String climatewebData(int fromYear, int toYear, String code) throws IOException {
         String url = apiURL + "/climateweb/rest/v1/country/annualavg/pr/" + fromYear + "/" + toYear + "/" + code + ".xml";
-        URLConnection urlConnection = new URL(url).openConnection();
-        urlConnection.setConnectTimeout(3000);
-        urlConnection.setReadTimeout(3000);
-        InputStream input = urlConnection.getInputStream();
-        String xml = new String(input.readAllBytes());
+        String xml = new JavaHttpClient().invoke(Request.create(Method.GET, Uri.of(url))).bodyString();
 
         if (xml.contains("Invalid country code. Three letters are required")) {
             throw new InvalidCountryISO(code + " not recognized by climateweb");

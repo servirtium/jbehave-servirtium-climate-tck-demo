@@ -41,7 +41,7 @@ public class ReplayingClimateStories extends ClimateStories {
             servirtium = ServirtiumServer.Replay(
                     toCamelCase(context.getCurrentScenario()),
                     Disk(new File(MD_PATH)),
-                    new ClimateInteractionOptions(), 0, SunHttp::new
+                    new ClimateInteractionOptions(), port, SunHttp::new
             );
             servirtium.start();
         }

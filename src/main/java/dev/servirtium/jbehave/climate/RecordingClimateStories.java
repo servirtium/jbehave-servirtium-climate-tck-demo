@@ -1,6 +1,6 @@
 package dev.servirtium.jbehave.climate;
 
-import org.jetbrains.annotations.NotNull;
+import javax.validation.constraints.NotNull;
 
 public class RecordingClimateStories extends ClimateStories {
 

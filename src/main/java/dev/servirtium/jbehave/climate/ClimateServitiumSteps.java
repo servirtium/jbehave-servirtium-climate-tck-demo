@@ -8,8 +8,8 @@ import org.http4k.servirtium.ServirtiumServer;
 import org.jbehave.core.annotations.AfterScenario;
 import org.jbehave.core.annotations.BeforeScenario;
 import org.jbehave.core.context.Context;
-import org.jetbrains.annotations.NotNull;
 
+import javax.validation.constraints.NotNull;
 import java.io.File;
 
 import static org.http4k.servirtium.InteractionStorage.Disk;

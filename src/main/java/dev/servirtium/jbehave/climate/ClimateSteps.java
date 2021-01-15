@@ -9,23 +9,23 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ClimateSteps {
     private ClimateApi api;
+    private String baseURL;
     private double rainfall;
     private String message;
-    private String apiURL;
 
-    public ClimateSteps(final String apiURL) {
-        this.apiURL = apiURL;
+    public ClimateSteps(final String baseURL) {
+        this.baseURL = baseURL;
     }
 
     @Given("World Bank geo data for the world on decade boundaries")
     public void givenWorldBankGeoDataForTheWorldOnDecadeBoundaries() {
-        api = new ClimateApi(apiURL);
+        api = new ClimateApi(baseURL);
     }
 
-    @When("rainfall totals sought for $from thru $to for $ccy")
-    public void whenRainfallTotalsSoughtBetweenDates(int from, int to, String ccy) {
+    @When("rainfall totals sought for $fromYear thru $toYear for $countryCode")
+    public void whenRainfallTotalsSoughtBetweenDates(int fromYear, int toYear, String countryCode) {
         try {
-            rainfall = api.getAverageRainfall(from, to, ccy.split(" and "));
+            rainfall = api.getAverageRainfall(fromYear, toYear, countryCode.split("\\+"));
         } catch ( Exception e ){
             message = e.getMessage();
         }

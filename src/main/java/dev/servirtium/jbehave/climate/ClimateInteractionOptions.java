@@ -4,7 +4,8 @@ import org.http4k.core.ContentType;
 import org.http4k.core.Request;
 import org.http4k.core.Response;
 import org.http4k.servirtium.InteractionOptions;
-import org.jetbrains.annotations.NotNull;
+
+import javax.validation.constraints.NotNull;
 
 public class ClimateInteractionOptions implements InteractionOptions {
 

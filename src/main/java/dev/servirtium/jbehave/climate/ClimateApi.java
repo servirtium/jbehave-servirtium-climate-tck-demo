@@ -1,10 +1,8 @@
 package dev.servirtium.jbehave.climate;
 
-import com.thoughtworks.xstream.io.xml.StaxDriver;
-import com.thoughtworks.xstream.security.AnyTypePermission;
+import com.thoughtworks.xstream.XStream;
 import dev.servirtium.jbehave.climate.domain.web.AnnualData;
 import dev.servirtium.jbehave.climate.domain.web.AnnualGcmDatum;
-import com.thoughtworks.xstream.XStream;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -32,7 +32,7 @@ import static org.jbehave.core.reporters.Format.*;
 public class ClimateStories extends JUnitStories {
 
     private final CrossReference xref = new CrossReference();
-    protected final Context context = new Context();
+    protected final Context context = new ClimateContext();
     private Format contextFormat = new ContextOutput(context);
     private ContextView contextView = new JFrameContextView().sized(640, 120);
     private ContextStepMonitor contextStepMonitor = new ContextStepMonitor(context, contextView, xref.getStepMonitor());

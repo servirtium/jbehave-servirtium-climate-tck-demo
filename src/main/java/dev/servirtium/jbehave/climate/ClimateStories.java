@@ -1,13 +1,7 @@
 package dev.servirtium.jbehave.climate;
 
 import org.apache.commons.text.WordUtils;
-import org.http4k.client.ApacheClient;
-import org.http4k.core.Uri;
-import org.http4k.server.SunHttp;
-import org.http4k.servirtium.ServirtiumServer;
 import org.jbehave.core.Embeddable;
-import org.jbehave.core.annotations.AfterScenario;
-import org.jbehave.core.annotations.BeforeScenario;
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
 import org.jbehave.core.context.Context;
@@ -30,11 +24,10 @@ import org.jbehave.core.steps.InstanceStepsFactory;
 import org.jbehave.core.steps.NullStepMonitor;
 
 import javax.validation.constraints.NotNull;
-import java.io.File;
 import java.util.HashSet;
 import java.util.List;
 
-import static org.http4k.servirtium.InteractionStorage.Disk;
+import static java.util.Arrays.asList;
 import static org.jbehave.core.io.CodeLocations.codeLocationFromClass;
 import static org.jbehave.core.reporters.Format.ANSI_CONSOLE;
 
@@ -52,6 +45,7 @@ public class ClimateStories extends JUnitStories {
         configuredEmbedder().embedderControls().doGenerateViewAfterStories(true).doIgnoreFailureInStories(false)
                 .doIgnoreFailureInView(true).doVerboseFailures(true).useThreads(1).useStoryTimeouts("60");
         configuredEmbedder().useEmbedderControls(new PropertyBasedEmbedderControls());
+        configuredEmbedder().useMetaFilters(asList("-skip"));
     }
 
     @Override
@@ -99,7 +93,7 @@ public class ClimateStories extends JUnitStories {
         return findPaths(filter, "");
     }
 
-    private List<String> findPaths(String include, String exclude) {
+    protected List<String> findPaths(String include, String exclude) {
         return new StoryFinder().findPaths(codeLocationFromClass(this.getClass()), include, exclude);
     }
 

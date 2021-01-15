@@ -28,6 +28,7 @@ public class ClimateSteps {
             rainfall = api.getAverageRainfall(fromYear, toYear, countryCode.split("\\+"));
         } catch ( Exception e ){
             message = e.getMessage();
+            throw new RuntimeException(e);
         }
     }
 

@@ -6,10 +6,12 @@ import org.http4k.server.SunHttp;
 import org.http4k.servirtium.ServirtiumServer;
 import org.jbehave.core.annotations.AfterScenario;
 import org.jbehave.core.annotations.BeforeScenario;
+import org.jbehave.core.annotations.ScenarioType;
 import org.jbehave.core.context.Context;
 
 import javax.validation.constraints.NotNull;
 import java.io.File;
+import java.util.List;
 
 import static org.http4k.servirtium.InteractionStorage.Disk;
 
@@ -36,7 +38,7 @@ public class RecordingClimateStories extends ClimateStories {
             this.port = port;
         }
 
-        @BeforeScenario
+        @BeforeScenario(uponType = ScenarioType.ANY)
         public void beforeScenario() throws Exception {
             servirtium = ServirtiumServer.Recording(
                     toCamelCase(context.getCurrentScenario()),
@@ -48,7 +50,7 @@ public class RecordingClimateStories extends ClimateStories {
             servirtium.start();
         }
 
-        @AfterScenario
+        @AfterScenario(uponType = ScenarioType.ANY)
         public void afterScenario() throws Exception {
             servirtium.stop();
         }

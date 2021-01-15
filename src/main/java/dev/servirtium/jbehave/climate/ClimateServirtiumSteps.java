@@ -14,13 +14,13 @@ import java.io.File;
 
 import static org.http4k.servirtium.InteractionStorage.Disk;
 
-public class ClimateServitiumSteps {
+public class ClimateServirtiumSteps {
 
     private final Context context;
     private final int port;
     private ServirtiumServer servirtium;
 
-    public ClimateServitiumSteps(Context context, int port) {
+    public ClimateServirtiumSteps(Context context, int port) {
         this.context = context;
         this.port = port;
     }

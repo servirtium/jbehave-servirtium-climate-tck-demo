@@ -4,6 +4,8 @@ import org.jbehave.core.Embeddable;
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
 import org.jbehave.core.context.Context;
+import org.jbehave.core.context.ContextView;
+import org.jbehave.core.context.JFrameContextView;
 import org.jbehave.core.embedder.PropertyBasedEmbedderControls;
 import org.jbehave.core.i18n.LocalizedKeywords;
 import org.jbehave.core.io.LoadFromClasspath;
@@ -14,10 +16,7 @@ import org.jbehave.core.model.TableParsers;
 import org.jbehave.core.model.TableTransformers;
 import org.jbehave.core.parsers.RegexStoryParser;
 import org.jbehave.core.reporters.*;
-import org.jbehave.core.steps.InjectableStepsFactory;
-import org.jbehave.core.steps.InstanceStepsFactory;
-import org.jbehave.core.steps.ParameterControls;
-import org.jbehave.core.steps.ParameterConverters;
+import org.jbehave.core.steps.*;
 import org.jbehave.core.steps.ParameterConverters.DateConverter;
 import org.jbehave.core.steps.ParameterConverters.ExamplesTableConverter;
 import org.jetbrains.annotations.NotNull;
@@ -35,6 +34,8 @@ public class ClimateStories extends JUnitStories {
     private final CrossReference xref = new CrossReference();
     protected final Context context = new Context();
     private Format contextFormat = new ContextOutput(context);
+    private ContextView contextView = new JFrameContextView().sized(640, 120);
+    private ContextStepMonitor contextStepMonitor = new ContextStepMonitor(context, contextView, xref.getStepMonitor());
 
     public ClimateStories() {
         configuredEmbedder().embedderControls().doGenerateViewAfterStories(true).doIgnoreFailureInStories(false)
@@ -69,7 +70,8 @@ public class ClimateStories extends JUnitStories {
         SurefireReporter.Options options = new SurefireReporter.Options().useReportName("surefire")
                 .withNamingStrategy(new SurefireReporter.BreadcrumbNamingStrategy()).doReportByStory(true);
         SurefireReporter surefireReporter = new SurefireReporter(embeddableClass, options);
-        return new MostUsefulConfiguration()                
+        return new MostUsefulConfiguration()
+                .useStepMonitor(contextStepMonitor)
                 .useStoryLoader(resourceLoader)
                 .useStoryParser(new RegexStoryParser(examplesTableFactory))
                 .useStoryReporterBuilder(

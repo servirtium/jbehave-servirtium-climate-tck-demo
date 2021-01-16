@@ -4,14 +4,14 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ClimateSteps {
     private ClimateApi api;
     private String baseURL;
     private double rainfall;
-    private String message;
+    private Exception exception;
 
     public ClimateSteps(final String baseURL) {
         this.baseURL = baseURL;
@@ -27,8 +27,8 @@ public class ClimateSteps {
         try {
             rainfall = api.getAverageRainfall(fromYear, toYear, countryCode.split("\\+"));
         } catch ( Exception e ){
-            message = e.getMessage();
-            throw new RuntimeException(e);
+            rainfall = -1;
+            exception = e;
         }
     }
 
@@ -39,6 +39,7 @@ public class ClimateSteps {
 
     @Then("message '$message' is received instead of rainfall")
     public void thenMessageIsReceivedInsteadOfRainfall(String message) {
-        assertThat(this.message, equalTo(message));
+        assertThat(exception, notNullValue());
+        assertThat(this.exception.getMessage(), equalTo(message));
     }
 }

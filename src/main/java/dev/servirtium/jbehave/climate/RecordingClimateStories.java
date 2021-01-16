@@ -38,7 +38,6 @@ public class RecordingClimateStories extends ClimateStories {
 
         @BeforeScenario(uponType = ScenarioType.ANY)
         public void beforeScenario() throws Exception {
-
             List<String> currentSteps = context.getCurrentSteps();
             currentSteps.replaceAll(s -> s.replaceAll(" ", "_"));
             servirtium = ServirtiumServer.Recording(

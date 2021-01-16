@@ -7,6 +7,7 @@ import org.jbehave.core.context.Context;
 
 import javax.validation.constraints.NotNull;
 import java.io.File;
+import java.util.List;
 
 import static org.http4k.servirtium.InteractionStorage.Disk;
 
@@ -34,9 +35,12 @@ public class ReplayingClimateStories extends ClimateStories {
 
         @BeforeScenario
         public void beforeScenario() throws Exception {
+            List<String> currentSteps = context.getCurrentSteps();
+            currentSteps.replaceAll(s -> s.replaceAll(" ", "_"));
             servirtium = ServirtiumServer.Replay(
-                    String.join(File.separator, context.getCurrentSteps()).replaceAll(" ", "_"),
-                    Disk(new File(MD_PATH)),
+                    currentSteps.get(currentSteps.size() - 1),
+                    Disk(new File(new File(MD_PATH),
+                            String.join(File.separator, currentSteps.subList(0, currentSteps.size()-1)))),
                     new ClimateInteractionOptions(), port
             );
             servirtium.start();

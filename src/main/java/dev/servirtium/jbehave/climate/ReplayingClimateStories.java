@@ -1,9 +1,5 @@
 package dev.servirtium.jbehave.climate;
 
-import org.apache.commons.text.WordUtils;
-import org.http4k.client.ApacheClient;
-import org.http4k.core.Uri;
-import org.http4k.server.SunHttp;
 import org.http4k.servirtium.ServirtiumServer;
 import org.jbehave.core.annotations.AfterScenario;
 import org.jbehave.core.annotations.BeforeScenario;
@@ -41,7 +37,7 @@ public class ReplayingClimateStories extends ClimateStories {
             servirtium = ServirtiumServer.Replay(
                     toCamelCase(context.getCurrentScenario()),
                     Disk(new File(MD_PATH)),
-                    new ClimateInteractionOptions(), port, SunHttp::new
+                    new ClimateInteractionOptions(), port
             );
             servirtium.start();
         }

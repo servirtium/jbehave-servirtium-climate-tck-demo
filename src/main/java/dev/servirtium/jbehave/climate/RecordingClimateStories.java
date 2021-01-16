@@ -1,8 +1,6 @@
 package dev.servirtium.jbehave.climate;
 
-import org.http4k.client.ApacheClient;
 import org.http4k.core.Uri;
-import org.http4k.server.SunHttp;
 import org.http4k.servirtium.ServirtiumServer;
 import org.jbehave.core.annotations.AfterScenario;
 import org.jbehave.core.annotations.BeforeScenario;
@@ -11,7 +9,6 @@ import org.jbehave.core.context.Context;
 
 import javax.validation.constraints.NotNull;
 import java.io.File;
-import java.util.List;
 
 import static org.http4k.servirtium.InteractionStorage.Disk;
 
@@ -44,8 +41,7 @@ public class RecordingClimateStories extends ClimateStories {
                     toCamelCase(context.getCurrentScenario()),
                     Uri.of(CLIMATEDATA_URL),
                     Disk(new File(MD_PATH)),
-                    new ClimateInteractionOptions(), port, SunHttp::new,
-                    ApacheClient.create()
+                    new ClimateInteractionOptions(), port
             );
             servirtium.start();
         }

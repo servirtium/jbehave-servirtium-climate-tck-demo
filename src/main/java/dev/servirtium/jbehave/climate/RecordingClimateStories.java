@@ -9,6 +9,7 @@ import org.jbehave.core.context.Context;
 
 import javax.validation.constraints.NotNull;
 import java.io.File;
+import java.util.List;
 
 import static org.http4k.servirtium.InteractionStorage.Disk;
 
@@ -37,10 +38,14 @@ public class RecordingClimateStories extends ClimateStories {
 
         @BeforeScenario(uponType = ScenarioType.ANY)
         public void beforeScenario() throws Exception {
+
+            List<String> currentSteps = context.getCurrentSteps();
+            currentSteps.replaceAll(s -> s.replaceAll(" ", "_"));
             servirtium = ServirtiumServer.Recording(
-                    toCamelCase(context.getCurrentScenario()),
+                    currentSteps.get(currentSteps.size() - 1),
                     Uri.of(CLIMATEDATA_URL),
-                    Disk(new File(MD_PATH)),
+                    Disk(new File(new File(MD_PATH),
+                            String.join(File.separator, currentSteps.subList(0, currentSteps.size()-1)))),
                     new ClimateInteractionOptions(), port
             );
             servirtium.start();

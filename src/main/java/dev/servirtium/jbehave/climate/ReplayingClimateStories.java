@@ -35,7 +35,7 @@ public class ReplayingClimateStories extends ClimateStories {
         @BeforeScenario
         public void beforeScenario() throws Exception {
             servirtium = ServirtiumServer.Replay(
-                    toCamelCase(context.getCurrentScenario()),
+                    String.join(File.separator, context.getCurrentSteps()).replaceAll(" ", "_"),
                     Disk(new File(MD_PATH)),
                     new ClimateInteractionOptions(), port
             );

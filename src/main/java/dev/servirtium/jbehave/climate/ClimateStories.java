@@ -1,6 +1,5 @@
 package dev.servirtium.jbehave.climate;
 
-import org.apache.commons.text.WordUtils;
 import org.jbehave.core.Embeddable;
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
@@ -95,11 +94,6 @@ public class ClimateStories extends JUnitStories {
 
     protected List<String> findPaths(String include, String exclude) {
         return new StoryFinder().findPaths(codeLocationFromClass(this.getClass()), include, exclude);
-    }
-
-    @NotNull
-    protected static String toCamelCase(String name) {
-        return WordUtils.capitalizeFully(name).replaceAll(" ", "");
     }
 
 }

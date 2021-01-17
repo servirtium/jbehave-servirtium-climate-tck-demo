@@ -13,6 +13,7 @@ public class ClimateInteractionOptions implements InteractionOptions {
     @Override
     public Request modify(@NotNull Request request) {
         return request
+                .removeHeader("X-XSS-Protection")
                 .replaceHeader("Host", "localhost")
                 .replaceHeader("User-agent", "agent")
                 .replaceHeader("Date", "Tue, 28 Jan 2020 14:15:55 GMT");

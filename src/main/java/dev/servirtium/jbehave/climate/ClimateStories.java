@@ -33,7 +33,7 @@ import static org.jbehave.core.reporters.Format.ANSI_CONSOLE;
 public class ClimateStories extends JUnitStories {
 
     public static final String CLIMATEDATA_URL = "http://climatedataapi.worldbank.org";
-    public static final String MD_PATH = "src/main/resources/md";
+    public static final String MD_PATH = "src/main/resources/mocks";
 
     protected final Context context = new ClimateContext();
     private Format contextFormat = new ContextOutput(context);

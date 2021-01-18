@@ -31,7 +31,7 @@ public class ReplayingClimateStories extends ClimateStories {
         }
 
         @BeforeScenario
-        public void beforeScenario(@Named("sv") String servirtiumMarkdownFileName) throws Exception {
+        public void beforeScenario(@Named("sv") String servirtiumMarkdownFileName) {
             servirtium = ServirtiumServer.Replay(
                     servirtiumMarkdownFileName,
                     Disk(new File(MD_PATH)),
@@ -41,7 +41,7 @@ public class ReplayingClimateStories extends ClimateStories {
         }
 
         @AfterScenario
-        public void afterScenario() throws Exception {
+        public void afterScenario() {
             servirtium.stop();
         }
     }

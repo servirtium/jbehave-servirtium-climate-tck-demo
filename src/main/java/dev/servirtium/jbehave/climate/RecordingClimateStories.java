@@ -33,7 +33,7 @@ public class RecordingClimateStories extends ClimateStories {
         }
 
         @BeforeScenario(uponType = ScenarioType.ANY)
-        public void beforeScenario(@Named("sv") String servirtiumMarkdownFileName) throws Exception {
+        public void beforeScenario(@Named("sv") String servirtiumMarkdownFileName) {
             servirtium = ServirtiumServer.Recording(
                     servirtiumMarkdownFileName,
                     Uri.of(CLIMATEDATA_URL),
@@ -44,7 +44,7 @@ public class RecordingClimateStories extends ClimateStories {
         }
 
         @AfterScenario(uponType = ScenarioType.ANY)
-        public void afterScenario() throws Exception {
+        public void afterScenario() {
             servirtium.stop();
         }
     }

@@ -9,9 +9,6 @@ import org.http4k.core.Request;
 import org.http4k.core.Uri;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.List;
 
 public class ClimateApi {
@@ -66,6 +63,8 @@ public class ClimateApi {
         String url = apiURL + "/climateweb/rest/v1/country/annualavg/pr/" + fromYear + "/" + toYear + "/" + code + ".xml";
         String xml = new JavaHttpClient().invoke(Request.create(Method.GET, Uri.of(url))).bodyString();
 
+        // World Bank's service communicates back some problems in a 200 response,
+        // but with a payload that indicated the problem.
         if (xml.contains("Invalid country code. Three letters are required")) {
             throw new InvalidCountryISO(code + " not recognized by climateweb");
         }

@@ -19,7 +19,7 @@
         <dependency>
             <groupId>org.jbehave</groupId>
             <artifactId>jbehave-core</artifactId>
-            <version>4.9-SNAPSHOT</version>
+            <version>4.8.3</version>
         </dependency>
         <dependency>
             <groupId>org.http4k</groupId>
